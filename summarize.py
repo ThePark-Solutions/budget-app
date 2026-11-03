@@ -1,10 +1,12 @@
 import csv
 
-total = 0
-with open("transactions.csv") as f:
-  reader = csv.DictReader(f)
-  for row in reader:
+def total_spent(rows):
+  total = 0
+  for row in rows:
     if row["Type"] != "Payment":
       total = total + float(row["Amount"])
+  return -total
   
-print(f"Total spent: ${-total:,.2f}")
+with open("transactions.csv") as f:
+  reader = csv.DictReader(f)
+  print(f"Total spent: ${total_spent(reader):,.2f}")
